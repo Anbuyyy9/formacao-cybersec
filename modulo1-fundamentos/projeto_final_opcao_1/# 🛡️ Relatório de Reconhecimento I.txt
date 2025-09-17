@@ -1,0 +1,63 @@
+# 🛡️ Relatório de Reconhecimento Inicial - Projeto Final CyberSec
+
+## 📡 Escopo da Análise
+
+O ambiente está segmentado em 3 redes principais:
+
+| Rede       | Subnet           | Descrição                                     |
+|------------|------------------|-----------------------------------------------|
+| `corp_net` | 10.10.10.0/24    | Rede corporativa (estações e web server)      |
+| `guest_net`| 10.10.30.0/24    | Rede de visitantes e dispositivos pessoais    |
+| `infra_net`| 10.10.50.0/24    | Rede de infraestrutura crítica (servidores)   |
+
+---
+
+## 🎯 Host Identificado
+
+### Host: `10.10.10.10`
+- **Hostname:** `WS_001.projeto_final_opcao_1_corp_net`
+- **MAC Address:** `0E:C3:D3:27:C4:62`
+- **Tempo de Resposta (Ping):** ~0.1 ms
+- **Distância de Rede:** 1 hop
+
+---
+
+## 🔍 Varredura de Portas (TCP)
+
+Comando executado:
+```bash
+nmap -sS -sV -O -Pn -p- 10.10.10.10
+
+
+Resultado:
+
+Todos os 65.535 ports TCP estão fechados (resetados)
+
+Detecção de SO: Muitos fingerprints, impossível identificar com precisão
+
+📡 Varredura de Portas UDP Comuns
+
+nmap -sU -p 53,161,162 10.10.10.10
+
+| Porta   | Estado | Serviço   |
+| ------- | ------ | --------- |
+| 53/udp  | closed | DNS       |
+| 161/udp | closed | SNMP      |
+| 162/udp | closed | SNMP Trap |
+
+
+📌 Observações Iniciais
+O host responde normalmente a ping (ICMP) com latência baixa.
+
+Todas as portas TCP e as portas UDP escaneadas estão fechadas.
+
+A ausência de serviços expostos pode indicar:
+
+Firewall ativo ou regras de filtragem de pacotes
+
+Host em modo stealth
+
+Serviços configurados para escutar apenas em localhost
+
+Host está ativo, mas intencionalmente "hardenizado"
+
